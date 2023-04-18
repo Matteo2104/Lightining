@@ -1,16 +1,11 @@
 float x, y;
 float x_old, y_old;
-float theta;
-float t;
-float increaseValue1, increaseValue2;
-float len_segment;
+float theta; 
+float len_segment, max_len_segment;;
 float deviation;
-float noise;
 float center_distance;
-float max_len_segment;
 float intensity;
-
-int fade = 0;
+int fade;
 
 void setup() {
   fullScreen();
@@ -26,6 +21,7 @@ void setup() {
   deviation = 0.3;
   theta = 0;
   intensity = 0;
+  fade = 0;
 }
 
 void draw() {
@@ -42,15 +38,15 @@ void draw() {
     fade = 0;
   } else {
     center_distance = sqrt(pow(x, 2) + pow(y, 2));
-    noise = random(noise - deviation, noise + deviation);
+    theta = random(theta - deviation, theta + deviation);
     
     if (center_distance > 400) {
       fade = 1;
     }
     
     len_segment = random(max_len_segment);
-    x = x_old + len_segment * cos(noise);
-    y = y_old + len_segment * sin(noise);
+    x = x_old + len_segment * cos(theta);
+    y = y_old + len_segment * sin(theta);
     
     intensity++;
     stroke(255 * (1 - exp(-0.01 * intensity)));
